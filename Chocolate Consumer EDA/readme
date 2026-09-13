@@ -1,0 +1,18 @@
+# Chocolate Sales & Consumption EDA
+
+## 📊 Project Overview
+This project explores the sales and consumption patterns of chocolate using **Exploratory Data Analysis (EDA)** techniques in Python. The goal is to uncover insights into consumer behavior, sales trends, and factors influencing chocolate consumption.
+
+## 🛠 Tools & Libraries
+- Python 3.10
+- Pandas
+- NumPy
+- Matplotlib
+- plotly
+
+## 🔎 Key Insights
+- Identified sales trends across different product categories.
+- Analyzed consumption behavior by demographics.
+- Visualized correlations between features such as price, sales volume, and consumer preferences.
+
+## 📂 Project Structure
