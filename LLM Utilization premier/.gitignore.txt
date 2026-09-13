@@ -1,0 +1,17 @@
+# Environment variables — never commit real keys
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Vector store / cache (if Pinecone or similar stores anything locally)
+.cache/
+*.index

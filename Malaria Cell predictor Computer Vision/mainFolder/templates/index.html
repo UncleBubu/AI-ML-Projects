@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deployment</title>
+</head>
+
+<body>
+    <form action="/" method="POST">
+        <div>
+            <div>
+                <label for="">Device Age(Months):</label>
+                <input type="number" min="1" name="device_age" required>
+            </div>
+            <br>
+            <div>
+                <label for="">Battery Capacity:</label>
+                <input type="number" min="1" step="0.1" name="battery_capacity" required>
+            </div>
+            <br>
+            <div>
+                <label for="">Average Screen Time(Hours):</label>
+                <input type="number" min="1" step="0.1" name="average_screen_time_hours" required>
+            </div>
+            <br>
+            <div>
+                <label for="">Average charging cycles:</label>
+                <input type="number" min="1" step="0.1" name="avg_charge_cycle" required>
+            </div>
+            <br>
+            <div>
+                <label for="">Average battery temperature(Celsius):</label>
+                <input type="number" min="1" step="0.1" name="avg_temp" required>
+            </div>
+            <br>
+            <div>
+                <label for="">Fast Charging usage (percentage):</label>
+                <input type="number" min="1" step="0.1" name="fast_charging" required>
+            </div>
+            <br>
+            <div>
+                <label for="">Overnight Charging per Week:</label>
+                <input type="number" min="0" step="1" name="overnight_charging_per_week" required>
+            </div>
+            <br>
+            <div>
+                <label for="">Gaming hours per week:</label>
+                <input type="number" min="0" step="0.1" name="gaming_hours_per_week" required>
+            </div>
+            <br>
+            <div>
+                <label for="">Video streaming hours per week:</label>
+                <input type="number" min="0" step="0.1" name="video_streaming_hours_per_week" required>
+            </div>
+            <br>
+            <div>
+                <label for="">Background app usage level:</label>
+                <select name="background_app_usage" required>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+            <br>
+            <div>
+                <label for="">Charging_habit_score:</label>
+                <input type="number" min="1" step="1" name="charging_habit_score" required>
+            </div>
+            <br>
+            <div>
+                <label for="">usage_intensity_score:</label>
+                <input type="number" min="1" step="1" name="usage_intensity_score" required>
+            </div>
+            <br>
+            <div>
+                <label for="">Thermal stress index:</label>
+                <input type="number" min="1" step="0.1" name="thermal_stress_index" required>
+            </div>
+            <br>
+            <div>
+                <input type="submit" name="submit" value="Predict Battery Health">
+            </div>
+        </div>
+    </form>
+    <div>
+        {% if predicted_battery_health %}
+        <p>Battery Percentage: {{ predicted_battery_health }}</p>
+        {% endif %}
+    </div>
+    <div>
+        {% if recommended_action %}
+        <p>Recommended Action: {{ recommended_action }}</p>
+        {% endif %}
+    </div>
+</body>
+
+</html>
