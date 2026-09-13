@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Datasets & raw video/image data (large — don't commit these)
+data/
+datasets/
+raw_data/
+*.mp4
+*.avi
+*.mov
+
+# Trained models & checkpoints
+*.pt
+*.pth
+*.h5
+*.onnx
+*.pkl
+weights/
+checkpoints/
+runs/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editor settings
+.vscode/
+.idea/
