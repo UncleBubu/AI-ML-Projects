@@ -1,0 +1,19 @@
+# Smartphone Status Recommender System
+
+## 📊 Project Overview
+This project implements a **regressor-classifier hybrid model** that predicts whether a smartphone should be **changed or kept** based on its latent features. By combining regression analysis with classification, the model acts as a **pseudo-recommender system**, providing actionable insights into the device’s status.
+
+## 🛠 Tools & Libraries
+- Python 3.x
+- Pandas
+- NumPy
+- Scikit-learn
+- Matplotlib / Seaborn
+
+## 🔎 Key Features
+- Extracts latent features from smartphone specifications.
+- Uses regression to estimate performance indicators.
+- Applies classification to recommend whether the phone should be replaced or retained.
+- Provides interpretable outputs for decision-making.
+
+## 📂 Project Structure
