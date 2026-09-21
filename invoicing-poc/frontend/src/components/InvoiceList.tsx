@@ -40,11 +40,11 @@ export function InvoiceList({ invoices, onChanged }: { invoices: Invoice[]; onCh
               const unpaid = inv.status === "sent" || inv.status === "overdue";
               return (
                 <tr key={inv.id}>
-                  <td>{inv.invoice_number}</td>
-                  <td>{inv.customer?.name ?? "-"}</td>
-                  <td>{formatDate(inv.due_date)}</td>
-                  <td>{formatNaira(inv.total_amount)}</td>
-                  <td><span className={`badge ${inv.status}`}>{inv.status}</span></td>
+                  <td data-label="No.">{inv.invoice_number}</td>
+                  <td data-label="Customer">{inv.customer?.name ?? "-"}</td>
+                  <td data-label="Due">{formatDate(inv.due_date)}</td>
+                  <td data-label="Total">{formatNaira(inv.total_amount)}</td>
+                  <td data-label="Status"><span className={`badge ${inv.status}`}>{inv.status}</span></td>
                   <td className="actions">
                     {inv.checkout_url && inv.status !== "paid" && inv.status !== "void" && (
                       <a href={inv.checkout_url} target="_blank" rel="noreferrer">Pay link</a>

@@ -57,7 +57,7 @@ export function ExpenseSection({ onChanged }: { onChanged: () => void }) {
               <thead><tr><th>Date</th><th>Category</th><th>Amount</th><th>Note</th></tr></thead>
               <tbody>
                 {data.expenses.map((x) => (
-                  <tr key={x.id}><td>{formatDate(x.expense_date)}</td><td>{x.category}</td><td>{formatNaira(x.amount)}</td><td>{x.note}</td></tr>
+                  <tr key={x.id}><td data-label="Date">{formatDate(x.expense_date)}</td><td data-label="Category">{x.category}</td><td data-label="Amount">{formatNaira(x.amount)}</td><td data-label="Note">{x.note}</td></tr>
                 ))}
               </tbody>
             </table>

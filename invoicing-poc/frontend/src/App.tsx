@@ -3,6 +3,7 @@ import type { FormEvent } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { supabase } from "./supabaseClient";
 import { listInvoices, listOverdue } from "./api/invoices";
+import { Brand } from "./components/Brand";
 import { InvoiceForm } from "./components/InvoiceForm";
 import { InvoiceList } from "./components/InvoiceList";
 import { ExpenseSection } from "./components/ExpenseSection";
@@ -29,33 +30,41 @@ function Dashboard({ session }: { session: Session }) {
   }, [invoices, overdue]);
 
   return (
-    <div className="page">
-      <header className="row between">
-        <h1>Invoicing</h1>
-        <span>{session.user.email} <button onClick={() => supabase.auth.signOut()}>Log out</button></span>
+    <>
+      {/* Full-width brand bar (styling only). The page content below is unchanged. */}
+      <header className="topbar">
+        <div className="topbar-inner">
+          <Brand />
+          <div className="topbar-user">
+            <span className="topbar-email">{session.user.email}</span>
+            <button onClick={() => supabase.auth.signOut()}>Log out</button>
+          </div>
+        </div>
       </header>
 
-      {overdue.data && <OverdueBanner overdue={overdue.data} onRan={refreshAll} />}
-      <SummaryPanel refreshKey={refreshKey} />
-      <div className="two-col">
-        <AskPanel />
-        <InsightsPanel />
+      <div className="page">
+        {overdue.data && <OverdueBanner overdue={overdue.data} onRan={refreshAll} />}
+        <SummaryPanel refreshKey={refreshKey} />
+        <div className="two-col">
+          <AskPanel />
+          <InsightsPanel />
+        </div>
+
+        <nav className="tabs">
+          <button className={tab === "invoices" ? "active" : ""} onClick={() => setTab("invoices")}>Invoices</button>
+          <button className={tab === "expenses" ? "active" : ""} onClick={() => setTab("expenses")}>Expenses</button>
+        </nav>
+
+        {tab === "invoices" && (
+          <>
+            <InvoiceForm onCreated={refreshAll} />
+            {invoices.error && <p className="error">{invoices.error}</p>}
+            <InvoiceList invoices={invoices.data ?? []} onChanged={refreshAll} />
+          </>
+        )}
+        {tab === "expenses" && <ExpenseSection onChanged={() => setRefreshKey((k) => k + 1)} />}
       </div>
-
-      <nav className="tabs">
-        <button className={tab === "invoices" ? "active" : ""} onClick={() => setTab("invoices")}>Invoices</button>
-        <button className={tab === "expenses" ? "active" : ""} onClick={() => setTab("expenses")}>Expenses</button>
-      </nav>
-
-      {tab === "invoices" && (
-        <>
-          <InvoiceForm onCreated={refreshAll} />
-          {invoices.error && <p className="error">{invoices.error}</p>}
-          <InvoiceList invoices={invoices.data ?? []} onChanged={refreshAll} />
-        </>
-      )}
-      {tab === "expenses" && <ExpenseSection onChanged={() => setRefreshKey((k) => k + 1)} />}
-    </div>
+    </>
   );
 }
 
@@ -75,16 +84,19 @@ function Login() {
   }
 
   return (
-    <form className="page card narrow" onSubmit={(e) => submit(e, "login")}>
-      <h1>Login</h1>
-      <input placeholder="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-      <input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} />
-      <div className="row">
-        <button type="submit">Log In</button>
-        <button type="button" onClick={(e) => submit(e, "signup")}>Sign Up</button>
-      </div>
-      {message && <p role="status">{message}</p>}
-    </form>
+    <div className="auth-wrap">
+      <form className="card auth-card" onSubmit={(e) => submit(e, "login")}>
+        <Brand stacked />
+        <p className="auth-tagline">Invoicing and cash flow, made simple.</p>
+        <input aria-label="Email" placeholder="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <input aria-label="Password" placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} />
+        <div className="row">
+          <button type="submit">Log In</button>
+          <button type="button" onClick={(e) => submit(e, "signup")}>Sign Up</button>
+        </div>
+        {message && <p role="status">{message}</p>}
+      </form>
+    </div>
   );
 }
 
