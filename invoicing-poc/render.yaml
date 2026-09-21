@@ -1,0 +1,35 @@
+# Render Blueprint: describes the backend web service so Render can create it from this repo.
+# The React frontend is NOT here; it is deployed separately on Vercel.
+services:
+  - type: web
+    name: invoicing-api
+    runtime: python
+    rootDir: backend-py            # the FastAPI app lives in this folder
+    plan: free                     # free instances sleep when idle; the app's boot catch-up run covers the daily job
+    buildCommand: pip install -r requirements.txt
+    # ONE process, no --reload: the APScheduler job and the in-memory rate limiter assume a single worker.
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION        # match the version the tests passed on locally
+        value: 3.13.7
+      - key: BUSINESS_TIMEZONE
+        value: Africa/Lagos
+      - key: LLM_BASE_URL
+        value: https://api.groq.com/openai/v1
+      - key: LLM_MODEL
+        value: openai/gpt-oss-120b
+      - key: AI_REQUESTS_PER_10MIN
+        value: "20"
+      # Secrets: Render asks you to type these in the dashboard (they are never stored in git).
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: PAYSTACK_SECRET_KEY
+        sync: false
+      - key: LLM_API_KEY
+        sync: false
+      # Set to your Vercel address once the frontend is deployed, e.g. https://your-app.vercel.app
+      - key: FRONTEND_ORIGIN
+        sync: false

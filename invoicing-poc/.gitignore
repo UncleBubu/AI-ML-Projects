@@ -1,0 +1,22 @@
+# Secrets: never commit these. (.env.example files ARE safe and stay tracked.)
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+minivenv/
+.pytest_cache/
+
+# Node / frontend build output
+node_modules/
+dist/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
